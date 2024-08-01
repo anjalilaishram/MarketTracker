@@ -2,7 +2,7 @@
 
 import { ConfigModel } from "../models/configModel";
 import redisClient from "../config/redis";
-import { subscribeToSymbol, unsubscribeFromSymbol } from "../config/websocket";
+import binanceWebSocket from "../services/binanceWebSocket";
 
 export class ConfigService {
     static async getConfig() {
@@ -20,7 +20,7 @@ export class ConfigService {
         const existingConfig = await ConfigModel.findOne({ symbol: configData.symbol });
 
         if (existingConfig) {
-            await unsubscribeFromSymbol(existingConfig.symbol);
+            await binanceWebSocket.unsubscribeFromSymbol(existingConfig.symbol);
         }
 
         const updatedConfig = await ConfigModel.findOneAndUpdate(
@@ -30,7 +30,20 @@ export class ConfigService {
         );
 
         await redisClient.del("config");
-        await subscribeToSymbol(updatedConfig.symbol);
+        await binanceWebSocket.subscribeToSymbol(updatedConfig.symbol);
         return updatedConfig;
+    }
+
+    static async deleteConfig(symbol: string) {
+        const config = await ConfigModel.findOne({ symbol });
+
+        if (!config) {
+            throw new Error('Configuration not found');
+        }
+
+        await binanceWebSocket.unsubscribeFromSymbol(symbol);
+        await ConfigModel.deleteOne({ symbol });
+        await redisClient.del("config");
+        return { message: 'Configuration deleted successfully' };
     }
 }

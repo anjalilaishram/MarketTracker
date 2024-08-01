@@ -14,7 +14,7 @@ const candleQueue = new Queue('candleQueue', { connection });
 const queueEvents = new QueueEvents('candleQueue', { connection });
 
 queueEvents.on('completed', ({ jobId }) => {
-    console.log(`Job completed: ${jobId}`);
+    // console.log(`Job completed: ${jobId}`);
 });
 
 queueEvents.on('failed', ({ jobId, failedReason }) => {
@@ -26,10 +26,10 @@ const worker = new Worker('candleQueue', async job => {
 
     if (type === 'historical') {
         const historicalData = await fetchOHLCV(symbol, '1s', startTime, endTime);
-        console.log(`Processed historical data for ${symbol} from ${startTime} to ${endTime}`);
+        // console.log(`Processed historical data for ${symbol} from ${startTime} to ${endTime}`);
     } else if (type === 'live') {
         await CandleModel.create(data);
-        console.log(`Processed live candle data for ${data.s}`);
+        // console.log(`Processed live candle data for ${data.s}`);
     }
 
     await redisClient.set(`last_cached_${symbol || data.s}`, JSON.stringify(data || { symbol, startTime, endTime }));

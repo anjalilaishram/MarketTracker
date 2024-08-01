@@ -3,6 +3,7 @@
 import express from "express";
 import cors from "cors";
 import { connectToMongoDB } from "./config/mongodb";
+import binanceWebSocket from './services/binanceWebSocket';
 import routes from "./routes";
 import morganMiddleware from "./middlewares/morganMiddleware"; // Import the Morgan middleware
 
@@ -17,6 +18,7 @@ app.use(morganMiddleware);
 
 // Connect to MongoDB
 connectToMongoDB();
+binanceWebSocket.connectWebSocket();
 
 // Use your API routes
 app.use(routes);

@@ -23,3 +23,13 @@ export const updateConfig = async (req: Request, res: Response): Promise<void> =
     }
 };
 
+export const deleteConfig = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { symbol } = req.body;
+        const result = await ConfigService.deleteConfig(symbol);
+        responseManager.success(res, result);
+    } catch (error) {
+        responseManager.error(res, error);
+    }
+};
+
