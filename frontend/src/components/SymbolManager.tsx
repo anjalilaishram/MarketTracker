@@ -103,11 +103,6 @@ const SymbolManager: React.FC = () => {
     )
     .sort();
 
-  const paginatedAvailableSymbols = availableSymbolsFiltered.slice(
-    0,
-    (currentPage + 1) * PAGE_SIZE
-  );
-
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
     if (scrollTop + clientHeight >= scrollHeight - 10) {
@@ -134,15 +129,18 @@ const SymbolManager: React.FC = () => {
 
   const handleDialogSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTermManage(event.target.value);
+    setCurrentPage(0); // Reset page when search term changes
   };
 
   const filteredTrackedSymbols = trackedSymbolsFiltered.filter((symbol) =>
     symbol.toLowerCase().includes(searchTermManage.toLowerCase())
   );
 
-  const filteredAvailableSymbols = paginatedAvailableSymbols.filter((symbol) =>
-    symbol.toLowerCase().includes(searchTermManage.toLowerCase())
-  );
+  const filteredAvailableSymbols = availableSymbolsFiltered
+    .filter((symbol) =>
+      symbol.toLowerCase().includes(searchTermManage.toLowerCase())
+    )
+    .slice(0, (currentPage + 1) * PAGE_SIZE);
 
   return (
     <>
@@ -229,8 +227,8 @@ const SymbolManager: React.FC = () => {
                 color="primary"
               />
             ))}
-            {availableSymbolsFiltered.length >
-              paginatedAvailableSymbols.length && (
+            {filteredAvailableSymbols.length <
+              availableSymbolsFiltered.length && (
               <Button
                 onClick={loadMoreSymbols}
                 variant="outlined"
