@@ -13,6 +13,7 @@ class ResponseManager {
     }
 
     error(res: Response, error: any, message: string = "Error") {
+        console.error(error);
         res.status(500).json({
             status: "error",
             message,

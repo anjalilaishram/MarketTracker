@@ -13,7 +13,7 @@ const connectWebSocket = async () => {
     ws.on('open', async () => {
         console.log("WebSocket connection opened");
         const symbols = await fetchSymbolsFromDB();
-        const streams = symbols.map(symbol => `${symbol}@kline_1s`);
+        const streams = symbols.map(symbol => `${symbol.toLowerCase()}@kline_1s`);
         const params = { method: "SUBSCRIBE", params: streams, id: 1 };
         ws.send(JSON.stringify(params));
     });
@@ -67,7 +67,7 @@ const handleWebSocketMessage = async (message: any) => {
 };
 
 export const subscribeToSymbol = async (symbol: string) => {
-    const stream = `${symbol}@kline_1s`;
+    const stream = `${symbol.toLowerCase()}@kline_1s`;
     if (ws && ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({
             method: "SUBSCRIBE",
@@ -79,7 +79,7 @@ export const subscribeToSymbol = async (symbol: string) => {
 };
 
 export const unsubscribeFromSymbol = async (symbol: string) => {
-    const stream = `${symbol}@kline_1s`;
+    const stream = `${symbol.toLowerCase()}@kline_1s`;
     if (ws && ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({
             method: "UNSUBSCRIBE",

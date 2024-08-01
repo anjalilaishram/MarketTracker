@@ -18,12 +18,11 @@ export const getLiveData = async (req: Request, res: Response): Promise<void> =>
 export const getHistoricalData = async (req: Request, res: Response): Promise<void> => {
     try {
         const symbol = req.params.symbol;
-        const startTime = req.query.startTime as string;
-        const endTime = req.query.endTime as string;
+        const startTime = parseInt(req.query.startTime as string, 10);
+        const endTime = parseInt(req.query.endTime as string, 10);
         const historicalData = await DataService.getHistoricalData(symbol, startTime, endTime);
         responseManager.success(res, historicalData);
     } catch (error) {
         responseManager.error(res, error);
     }
 };
-

@@ -1,10 +1,8 @@
-
-// backend/src/services/dataService.ts
-
 import axios from "axios";
 import redisClient from "../config/redis";
 import { CandleModel } from "../models/candleModel";
 import { CONFIG } from "../config/constants";
+import { fetchOHLCV } from "./historicalDataHandler";
 
 export class DataService {
     static async getLiveData(symbol: string) {
@@ -22,18 +20,18 @@ export class DataService {
         return liveData;
     }
 
-    static async getHistoricalData(symbol: string, startTime: string, endTime: string) {
-        const response = await axios.get(`${CONFIG.BINANCE_API_BASE_URL}/api/v3/klines`, {
-            params: { symbol, interval: "1s", startTime, endTime },
-        });
-
-        const historicalData = response.data;
-        for (const candle of historicalData) {
-            const [timestamp, open, high, low, close, volume] = candle;
-            await CandleModel.create({ symbol, timestamp, open, high, low, close, volume });
+    static async getHistoricalData(symbol: string, startTime: number, endTime: number) {
+        try {
+            // Query the CandleModel for the historical data
+            const historicalData = await CandleModel.find({
+                s: symbol,
+                t: { $gte: startTime, $lte: endTime }
+            }).select("-_id -__v").exec();
+    
+            return historicalData;
+        } catch (error) {
+            console.error("Error fetching historical data:", error);
+            throw error;
         }
-
-        return historicalData;
     }
 }
-

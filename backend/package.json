@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "ts-node src/migrations/addInitialSymbols.ts",
     "server": "ts-node src/server.ts",
     "data-mining": "ts-node src/dataMiningService.ts"
   },

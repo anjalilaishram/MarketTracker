@@ -16,11 +16,11 @@ const connectToMongoDB = async (): Promise<void> => {
 };
 
 const initialSymbols = [
-    { symbol: "btcusdt", interval: "1s" },
-    { symbol: "ethusdt", interval: "1s" },
-    { symbol: "bnbusdt", interval: "1s" },
-    { symbol: "adausdt", interval: "1s" },
-    { symbol: "xrpusdt", interval: "1s" },
+    { symbol: "BTCUSDT", interval: "1s" },
+    { symbol: "ETHUSDT", interval: "1s" },
+    { symbol: "BNBUSDT", interval: "1s" },
+    { symbol: "ADAUSDT", interval: "1s" },
+    { symbol: "XRPUSDT", interval: "1s" },
 ];
 
 const upsertInitialSymbols = async () => {
