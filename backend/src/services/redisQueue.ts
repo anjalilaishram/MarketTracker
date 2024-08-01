@@ -26,7 +26,6 @@ const worker = new Worker('candleQueue', async job => {
 
     if (type === 'historical') {
         const historicalData = await fetchOHLCV(symbol, '1s', startTime, endTime);
-        console.log(historicalData.length)
         console.log(`Processed historical data for ${symbol} from ${startTime} to ${endTime}`);
     } else if (type === 'live') {
         await CandleModel.create(data);
