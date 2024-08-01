@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useCallback } from "react";
 import {
   createChart,
@@ -22,6 +21,7 @@ interface DataItem {
 
 interface TradingViewChartProps {
   data: DataItem[];
+  socketData: DataItem[];
   fetchMoreData: (fromTime: number) => Promise<DataItem[]>;
 }
 
@@ -41,6 +41,7 @@ function localToTime(localTime: number): number {
 
 const TradingViewChart: React.FC<TradingViewChartProps> = ({
   data,
+  socketData,
   fetchMoreData,
 }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -150,6 +151,16 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({
       );
     }
   }, [data]);
+
+  useEffect(() => {
+    if (candlestickSeriesRef.current && socketData.length > 0) {
+      const item = socketData[socketData.length - 1];
+      candlestickSeriesRef.current.update({
+        ...item,
+        time: timeToLocal(item.time),
+      });
+    }
+  }, [socketData]);
 
   useEffect(() => {
     const handleResize = () => {

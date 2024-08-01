@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import TradingViewChart from "../components/TradingViewChart";
-import { fetchHistoricalData } from "../utils/api";
+import { fetchHistoricalData, fetchRecentEntries } from "../utils/api";
+import { connectWebSocket, handleWebSocketMessage } from "../utils/webSocket";
 
 interface DataItem {
   time: number;
@@ -16,6 +17,7 @@ interface DataItem {
 
 const Page: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
+  const [socketData, setSocketData] = useState<DataItem[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +41,20 @@ const Page: React.FC = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []);
+
+  useEffect(() => {
+    const socket = connectWebSocket("BTCUSDT");
+
+    socket.onmessage = (event) => {
+      const newCandle = handleWebSocketMessage(event);
+      setSocketData((prevData) => [...prevData, newCandle]);
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   const fetchMoreData = async (fromTime: number): Promise<DataItem[]> => {
     const endTime = fromTime; // fromTime is already in seconds
@@ -64,7 +79,11 @@ const Page: React.FC = () => {
   return (
     <Provider store={store}>
       <div>
-        <TradingViewChart data={data} fetchMoreData={fetchMoreData} />
+        <TradingViewChart
+          data={data}
+          socketData={socketData}
+          fetchMoreData={fetchMoreData}
+        />
       </div>
     </Provider>
   );
