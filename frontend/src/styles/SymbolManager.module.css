@@ -1,0 +1,82 @@
+/* src/styles/SymbolManager.module.css */
+.symbolManager {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1000;
+  }
+  
+  .symbolSelector {
+    display: flex;
+    align-items: center;
+  }
+  
+  .symbolSelector button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .symbolSelector button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+  }
+  
+  .dropdown li {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown li:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .availableSymbols {
+    margin-top: 10px;
+  }
+  
+  .availableSymbols ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .availableSymbols li {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+  }
+  
+  .availableSymbols li button {
+    margin-left: 10px;
+    padding: 3px 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .availableSymbols li button:hover {
+    background-color: #e0e0e0;
+  }
+  

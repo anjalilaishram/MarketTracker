@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.6",
+    "@mui/material": "^5.16.6",
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.2",
     "lightweight-charts": "^4.2.0",

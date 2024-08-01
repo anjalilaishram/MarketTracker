@@ -22,3 +22,23 @@ export const fetchRecentEntries = async (symbol: string) => {
     volume: candle.v,
   }));
 };
+
+export const fetchConfig = async () => {
+  const response = await axios.get(`${API_URL}/config`);
+  return response.data.data;
+};
+
+export const fetchAvailableSymbols = async () => {
+  const response = await axios.get('https://api.binance.com/api/v3/exchangeInfo');
+  return response.data.symbols.map((symbolInfo: any) => symbolInfo.symbol);
+};
+
+export const postConfig = async (data: any) => {
+  const response = await axios.post(`${API_URL}/config`, data);
+  return response.data.data;
+};
+
+export const deleteConfig = async (symbol: string) => {
+  const response = await axios.delete(`${API_URL}/config`, { data: { symbol } });
+  return response.data.data;
+};
