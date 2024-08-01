@@ -1,6 +1,8 @@
 # MarketTracker
 
-MarketTracker is a dynamic and efficient platform designed to monitor and display real-time price data for stocks and cryptocurrencies. By leveraging advanced technologies and APIs, MarketTracker provides users with up-to-date market information in an easy-to-use interface.
+MarketTracker is a cutting-edge platform that delivers real-time price data for stocks and cryptocurrencies. With a sleek interface and powerful features, it offers up-to-date market information and stores 1-second interval data in MongoDB for detailed historical tracking.
+
+![Screen Recording](./screen_recording.gif)
 
 ## Table of Contents
 
@@ -9,7 +11,6 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
 - [Setup MongoDB and Redis](#setup-mongodb-and-redis)
 - [Setup and Installation](#setup-and-installation)
 - [Usage](#usage)
-- [Project Structure](#project-structure)
 - [Scripts](#scripts)
 - [Contributing](#contributing)
 - [License](#license)
@@ -17,11 +18,12 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
 ## Features
 
 - Real-time price updates from Binance
-- Historical data fetching for 1-second intervals
-- Interactive TradingView chart integration
-- Symbol management with search, pagination, and sorting
-- WebSocket connections for live updates
-- Efficient data caching with Redis
+- Historical data fetching (1-second intervals)
+- Interactive TradingView chart
+- Symbol management with search, pagination, sorting
+- WebSocket for live updates
+- Efficient Redis caching
+- 1-second data storage in MongoDB
 
 ## Tech Stack
 
@@ -33,8 +35,8 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
 
 ## Setup MongoDB and Redis
 
-1. **MongoDB**: Follow the official [MongoDB installation guide](https://docs.mongodb.com/manual/installation/) for your operating system.
-2. **Redis**: Follow the official [Redis installation guide](https://redis.io/download) for your operating system.
+1. **MongoDB**: Follow the [installation guide](https://docs.mongodb.com/manual/installation/) for your OS.
+2. **Redis**: Follow the [installation guide](https://redis.io/download) for your OS.
 
 ## Setup and Installation
 
@@ -60,7 +62,7 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
    npm install
    ```
 
-3. Create a `.env` file in the `backend` directory and set the necessary environment variables:
+3. Create a `.env` file in the `backend` directory:
 
    ```bash
    BINANCE_API_BASE_URL=https://api.binance.com
@@ -78,6 +80,7 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
    ```
 
 5. Start the backend server:
+
    ```bash
    npm run server
    ```
@@ -96,13 +99,14 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
    npm install
    ```
 
-3. Create a `.env.local` file in the `frontend` directory and set the necessary environment variables:
+3. Create a `.env.local` file in the `frontend` directory:
 
    ```bash
    NEXT_PUBLIC_API_URL=http://localhost:5000/api
    ```
 
 4. Start the frontend development server:
+
    ```bash
    npm run dev
    ```
@@ -112,44 +116,6 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
 1. Open your browser and navigate to `http://localhost:3000`.
 2. Use the symbol manager to track or untrack symbols.
 3. View real-time and historical data on the TradingView chart.
-
-## Project Structure
-
-```
-MarketTracker/
-│
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── middlewares/
-│   │   ├── migrations/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   ├── server.ts
-│   │
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── .env
-│
-├── frontend/
-│   ├── src/
-│   │   ├── app/
-│   │   ├── components/
-│   │   ├── redux/
-│   │   ├── styles/
-│   │   ├── utils/
-│   │   ├── pages/
-│   │   ├── public/
-│   │
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── .env.local
-│
-├── README.md
-```
 
 ## Scripts
 
