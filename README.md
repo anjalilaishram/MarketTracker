@@ -79,7 +79,7 @@ MarketTracker is a dynamic and efficient platform designed to monitor and displa
 
 5. Start the backend server:
    ```bash
-   npm start
+   npm run server
    ```
 
 ### Frontend Setup
@@ -155,7 +155,7 @@ MarketTracker/
 
 ### Backend
 
-- `npm start`: Start the backend server
+- `npm run server`: Start the backend server
 - `npm run migrate`: Run database migrations
 
 ### Frontend
