@@ -124,8 +124,16 @@ const SymbolManager: React.FC = () => {
     }
   };
 
-  const openDialog = () => setDialogOpen(true);
-  const closeDialog = () => setDialogOpen(false);
+  const openDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+    // Reset search terms and pagination
+    setSearchTermManage("");
+    setCurrentPage(0);
+  };
 
   const handleDialogSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTermManage(event.target.value);
@@ -203,6 +211,7 @@ const SymbolManager: React.FC = () => {
             size="small"
             fullWidth
             onChange={handleDialogSearch}
+            value={searchTermManage}
             sx={{ marginBottom: 2, backgroundColor: "transparent" }} // Remove background color
           />
           <Box>
